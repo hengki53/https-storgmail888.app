@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STORGMAIL88 - Platform Setor Gmail Profesional</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            900: '#4c1d95',
+                            dark: '#0f0c1b',
+                            card: '#18132d',
+                            border: '#2c2250'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0b0914;
+            color: #f3f4f6;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .glow-purple {
+            box-shadow: 0 0 25px -5px rgba(139, 92, 246, 0.4);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #110e21;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b2f63;
+            border-radius: 9999px;
+        }
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-ticker {
+            display: inline-block;
+            white-space: nowrap;
+            animation: ticker 30s linear infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between pb-24 selection:bg-purple-500 selection:text-white">
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 pointer-events-none max-w-sm w-full px-4"></div>
+
+    <!-- MAIN WRAPPER (Mobile First Container) -->
+    <div class="w-full max-w-md mx-auto bg-[#0f0c1b] min-h-screen shadow-2xl relative flex flex-col border-x border-[#231a42]">
+
+        <!-- HEADER & TICKER -->
+        <header class="sticky top-0 z-40 bg-[#120e26]/95 backdrop-blur-md border-b border-[#2c2250]">
+            <!-- Topbar Brand -->
+            <div class="px-4 py-3 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center glow-purple">
+                        <i data-lucide="mail-check" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-indigo-300 to-blue-400 text-lg tracking-wider">STORGMAIL88</h1>
+                        <p class="text-[10px] text-purple-300/80 font-medium tracking-wide">Official Prime Gmail Depo Hub</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="switchTab('rules')" class="relative p-2 rounded-xl bg-purple-950/60 border border-purple-800/50 text-purple-300 hover:bg-purple-900/60 transition active:scale-95" title="Saluran & Info">
+                        <i data-lucide="bell" class="w-5 h-5"></i>
+                        <span id="notif-badge" class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
+                    </button>
+                    <button onclick="switchTab('admin')" class="p-2 rounded-xl bg-indigo-950/60 border border-indigo-800/50 text-indigo-300 hover:bg-indigo-900/60 transition active:scale-95" title="Admin Panel">
+                        <i data-lucide="shield-alert" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Ticker Pengumuman -->
+            <div class="bg-gradient-to-r from-purple-900/80 via-indigo-950 to-purple-900/80 border-y border-purple-800/40 py-1.5 px-3 overflow-hidden flex items-center gap-2">
+                <span class="flex items-center gap-1 text-[11px] font-bold text-amber-400 uppercase tracking-wider bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20 shrink-0">
+                    <i data-lucide="megaphone" class="w-3 h-3 animate-bounce"></i> Info:
+                </span>
+                <div class="overflow-hidden whitespace-nowrap w-full">
+                    <div id="ticker-text-display" class="animate-ticker text-xs text-purple-200 font-medium">
+                        PENGUMUMAN STORGMAILPRIME &bull; INFO PENTING: SEMUA ROOM SEDANG CLOSE, SILAHKAN JOIN SALURAN WHATSAPP DAN JOIN GRUB DISKUSI TELEGRAM UNTUK INFO LAINNYA
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT VIEWS / TABS -->
+        <main class="flex-1 p-4 pb-20 overflow-y-auto">
+
+            <!-- TAB 1: HOME (Dashboard) -->
+            <section id="view-home" class="space-y-5 animate-fadeIn">
+                <!-- Status Room Banner -->
+                <div id="room-status-banner" class="p-4 rounded-2xl border transition-all duration-300 shadow-lg flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div id="room-status-icon-wrap" class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
+                            <i id="room-status-icon" data-lucide="lock" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span id="room-status-pill" class="text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider"></span>
+                            </div>
+                            <h2 id="room-status-title" class="text-base font-bold text-white mt-0.5"></h2>
+                            <p id="room-status-desc" class="text-xs text-gray-300 mt-0.5"></p>
+                        </div>
+                    </div>
+                    <button onclick="switchTab('rules')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/10 hover:bg-white/20 text-white transition shrink-0">
+                        Info
+                    </button>
+                </div>
+
+                <!-- Kartu Saldo (Real-time update) -->
+                <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-purple-900 via-[#1e133d] to-[#120c24] border border-purple-500/30 p-6 glow-purple">
+                    <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-purple-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="absolute -left-10 -top-10 w-40 h-40 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                    
+                    <div class="relative z-10 flex justify-between items-start">
+                        <div>
+                            <p class="text-xs uppercase tracking-widest text-purple-300/80 font-semibold">Total Saldo Aktif</p>
+                            <h3 id="user-balance" class="text-3xl font-extrabold text-white mt-1">Rp 0</h3>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-semibold flex items-center gap-1">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Active
+                        </span>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-purple-500/20 grid grid-cols-2 gap-3">
+                        <button onclick="switchTab('tarik')" class="py-2.5 px-4 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-lg shadow-purple-600/30 transition active:scale-95">
+                            <i data-lucide="wallet" class="w-4 h-4"></i> Tarik Saldo
+                        </button>
+                        <button onclick="switchTab('setor')" class="py-2.5 px-4 rounded-xl bg-purple-950/80 hover:bg-purple-900 border border-purple-700/50 text-purple-200 font-semibold text-xs flex items-center justify-center gap-2 transition active:scale-95">
+                            <i data-lucide="upload-cloud" class="w-4 h-4 text-purple-400"></i> Stor Gmail
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Menu Cepat -->
+                <div>
+                    <h3 class="text-sm font-bold text-gray-200 mb-3 flex items-center gap-2">
+                        <i data-lucide="grid" class="w-4 h-4 text-purple-400"></i> Menu Cepat
+                    </h3>
+                    <div class="grid grid-cols-4 gap-3">
+                        <button onclick="switchTab('setor')" class="flex flex-col items-center gap-2 p-3 rounded-2xl bg-[#17122b] border border-[#2c2250] hover:border-purple-500/50 transition group active:scale-95">
+                            <div class="w-12 h-12 rounded-xl bg-purple-600/20 border border-purple-500/30 flex items-center justify-center text-purple-400 group-hover:scale-110 transition">
+                                <i data-lucide="plus-circle" class="w-6 h-6"></i>
+                            </div>
+                            <span class="text-[11px] font-medium text-gray-300">Stor Gmail</span>
+                        </button>
+                        <button onclick="switchTab('checker')" class="flex flex-col items-center gap-2 p-3 rounded-2xl bg-[#17122b] border border-[#2c2250] hover:border-blue-500/50 transition group active:scale-95">
+                            <div class="w-12 h-12 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:scale-110 transition">
+                                <i data-lucide="check-check" class="w-6 h-6"></i>
+                            </div>
+                            <span class="text-[11px] font-medium text-gray-300">Checker</span>
+                        </button>
+                        <button onclick="switchTab('tarik')" class="flex flex-col items-center gap-2 p-3 rounded-2xl bg-[#17122b] border border-[#2c2250] hover:border-emerald-500/50 transition group active:scale-95">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-600/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition">
+                                <i data-lucide="arrow-down-left" class="w-6 h-6"></i>
+                            </div>
+                            <span class="text-[11px] font-medium text-gray-300">Tarik</span>
+                        </button>
+                        <button onclick="switchTab('rules')" class="flex flex-col items-center gap-2 p-3 rounded-2xl bg-[#17122b] border border-[#2c2250] hover:border-amber-500/50 transition group active:scale-95">
+                            <div class="w-12 h-12 rounded-xl bg-amber-600/20 border border-amber-500/30 flex items-center justify-center text-amber-400 group-hover:scale-110 transition">
+                                <i data-lucide="message-square-code" class="w-6 h-6"></i>
+                            </div>
+                            <span class="text-[11px] font-medium text-gray-300">Saluran</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Statistik Real-time -->
+                <div>
+                    <h3 class="text-sm font-bold text-gray-200 mb-3 flex items-center gap-2">
+                        <i data-lucide="bar-chart-3" class="w-4 h-4 text-purple-400"></i> Statistik Setoran Anda
+                    </h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="p-4 rounded-2xl bg-[#17122b] border border-[#2c2250] flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400">
+                                <i data-lucide="layers" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="text-[11px] text-gray-400 font-medium">Total Disetor</p>
+                                <h4 id="stat-total" class="text-lg font-bold text-white">0</h4>
+                            </div>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-[#17122b] border border-[#2c2250] flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400">
+                                <i data-lucide="clock" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="text-[11px] text-gray-400 font-medium">Pending</p>
+                                <h4 id="stat-pending" class="text-lg font-bold text-white">0</h4>
+                            </div>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-[#17122b] border border-[#2c2250] flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+                                <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="text-[11px] text-gray-400 font-medium">Sukses</p>
+                                <h4 id="stat-sukses" class="text-lg font-bold text-white">0</h4>
+                            </div>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-[#17122b] border border-[#2c2250] flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400">
+                                <i data-lucide="badge-dollar-sign" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="text-[11px] text-gray-400 font-medium">Total Cuan</p>
+                                <h4 id="stat-cuan" class="text-sm font-bold text-white">Rp 0</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Informasi Harga Gmail Aktif -->
+                <div class="p-4 rounded-2xl bg-gradient-to-r from-purple-950/40 to-[#17122b] border border-purple-800/30">
+                    <div class="flex items-center justify-between mb-2">
+                        <h4 class="text-xs font-bold text-purple-300 flex items-center gap-1.5 uppercase tracking-wider">
+                            <i data-lucide="tag" class="w-3.5 h-3.5"></i> Harga Gmail Hari Ini
+                        </h4>
+                        <span class="text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded-full">Update Live</span>
+                    </div>
+                    <div id="home-price-list" class="space-y-2 mt-3">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: STOR GMAIL -->
+            <section id="view-setor" class="space-y-5 hidden animate-fadeIn">
+                <div class="p-4 rounded-2xl bg-[#17122b] border border-[#2c2250]">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                            <i data-lucide="upload-cloud" class="w-4 h-4 text-purple-400"></i> Form Setor Gmail Massal
+                        </h3>
+                        <span id="setor-room-badge" class="text-[10px] font-bold px-2 py-0.5 rounded uppercase"></span>
+                    </div>
+                    <p id="setor-instruction-text" class="text-xs text-gray-400 mb-4"></p>
+
+                    <form id="form-stor" onsubmit="handleSetorSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-300 mb-1.5">Pilih Kategori Gmail</label>
+                            <select id="stor-category" class="w-full bg-[#110e21] border border-[#2c2250] rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-purple-500 transition">
+                                <!-- Dynamic Options -->
+                            </select>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-1.5">
+                                <label class="block text-xs font-semibold text-gray-300">Data Email & Password</label>
+                                <span class="text-[10px] text-purple-400">Format: email@gmail.com:password</span>
+                            </div>
+                            <textarea id="stor-data-input" rows="5" placeholder="contoh akun 1:password123&#10;contoh akun 2:password456" class="w-full bg-[#110e21] border border-[#2c2250] rounded-xl p-3 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-purple-500 transition font-mono"></textarea>
+                        </div>
+                        <div class="p-3 rounded-xl bg-purple-950/30 border border-purple-800/30 flex items-start gap-2.5">
+                            <i data-lucide="info" class="w-4 h-4 text-purple-400 shrink-0 mt-0.5"></i>
+                            <p class="text-[11px] text-purple-200 leading-relaxed">
+                                Pastikan akun belum pernah disetor di platform lain. Saldo akan otomatis masuk setelah divalidasi oleh admin.
+                            </p>
+                        </div>
+                        <button type="submit" id="btn-submit-stor" class="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs shadow-lg shadow-purple-600/30 transition active:scale-95 flex items-center justify-center gap-2">
+                            <i data-lucide="send" class="w-4 h-4"></i> Kirim Setoran Gmail
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- TAB 3: CHECKER -->
+            <section id="view-checker" class="space-y-5 hidden animate-fadeIn">
+                <div class="p-4 rounded-2xl bg-[#17122b] border border-[#2c2250]">
+                    <h3 class="text-sm font-bold text-white flex items-center gap-2 mb-2">
+                        <i data-lucide="check-check" class="w-4 h-4 text-blue-400"></i> Gmail Format & Syntax Checker
+                    </h3>
+                    <p class="text-xs text-gray-400 mb-4">Periksa kelayakan format baris email dan password sebelum Anda melakukan setoran.</p>
+
+                    <div class="space-y-4">
+                        <div>
+                            <textarea id="checker-input" rows="5" placeholder="email@gmail.com:password" class="w-full bg-[#110e21] border border-[#2c2250] rounded-xl p-3 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition font-mono"></textarea>
+                        </div>
+                        <button onclick="runChecker()" class="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs shadow-lg shadow-blue-600/30 transition active:scale-95 flex items-center justify-center gap-2">
+                            <i data-lucide="cpu" class="w-4 h-4"></i> Mulai Cek Format
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Hasil Checker -->
+                <div id="checker-result-wrapper" class="hidden space-y-3">
+                    <h4 class="text-xs font-bold text-gray-300 uppercase tracking-wider">Hasil Pemeriksaan</h4>
+                    <div id="checker-result-stats" class="grid grid-cols-2 gap-2"></div>
+                    <div id="checker-result-list" class="space-y-2 max-h-60 overflow-y-auto"></div>
+                </div>
+            </section>
+
+            <!-- TAB 4: TARIK SALDO -->
+            <section id="view-tarik" class="space-y-5 hidden animate-fadeIn">
+                <div class="p-4 rounded-2xl bg-[#17122b] border border-[#2c2250]">
+                    <h3 class="text-sm font-bold text-white flex items-center gap-2 mb-2">
+                        <i data-lucide="wallet" class="w-4 h-4 text-emerald-400"></i> Tarik Saldo (Withdraw)
+                    </h3>
+                    <p class="text-xs text-gray-400 mb-4">Cairkan hasil setoran Gmail Anda ke E-Wallet atau Rekening Bank.</p>
+
+                    <div class="p-3.5 rounded-xl bg-emerald-950/30 border border-emerald-800/30 mb-4 flex justify-between items-center">
+                        <div>
+                            <p class="text-[10px] text-emerald-300 font-medium">Saldo Tersedia</p>
+                            <h4 id="tarik-balance-display" class="text-lg font-bold text-white">Rp 0</h4>
+                        </div>
+                        <button onclick="setMaxWithdraw()" class="px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 text-xs font-semibold hover:bg-emerald-500/30 transition">Max</button>
+                    </div>
+
+                    <form onsubmit="handleWithdrawSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-300 mb-1.5">Metode Penarikan</label>
+                            <select id="withdraw-method" class="w-full bg-[#110e21] border border-[#2c2250] rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-500 transition">
+                                <option value="DANA">DANA</option>
+                                <option value="OVO">OVO</option>
+                                <option value="GOPAY">GOPAY</option>
+                                <option value="BCA">BANK BCA</option>
+                                <option value="BRI">BANK BRI</option>
+                                <option value="MANDIRI">BANK MANDIRI</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-300 mb-1.5">Nomor Tujuan / No Rekening</label>
+                            <input type="text" id="withdraw-account" placeholder="08xxxxxxxxxx / No Rek" required class="w-full bg-[#110e21] border border-[#2c2250] rounded-xl px-3 py-2.5 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500 transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-300 mb-1.5">Nama Pemilik Akun</label>
+                            <input type="text" id="withdraw-name" placeholder="Sesuai akun / rekening" required class="w-full bg-[#110e21] border border-[#2c2250] rounded-xl px-3 py-2.5 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500 transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-300 mb-1.5">Jumlah Penarikan (Rp)</label>
+                            <input type="number" id="withdraw-amount" placeholder="Minimal Rp 10.000" min="10000" required class="w-full bg-[#110e21] border border-[#2c2250] rounded-xl px-3 py-2.5 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500 transition">
+                        </div>
+                        <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs shadow-lg shadow-emerald-600/30 transition active:scale-95 flex items-center justify-center gap-2">
+                            <i data-lucide="check" class="w-4 h-4"></i> Ajukan Penarikan
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- TAB 5: RIWAYAT -->
+            <section id="view-riwayat" class="space-y-4 hidden animate-fadeIn">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                        <i data-lucide="history" class="w-4 h-4 text-purple-400"></i> Riwayat Aktivitas
+                    </h3>
+                    <div class="flex gap-1.5 bg-[#17122b] p-1 rounded-xl border border-[#2c2250]">
+                        <button onclick="filterHistory('all')" id="filter-all" class="px-2.5 py-1 rounded-lg text-[10px] font-semibold bg-purple-600 text-white transition">Semua</button>
+                        <button onclick="filterHistory('setor')" id="filter-setor" class="px-2.5 py-1 rounded-lg text-[10px] font-semibold text-gray-400 hover:text-white transition">Setor</button>
+                        <button onclick="filterHistory('tarik')" id="filter-tarik" class="px-2.5 py-1 rounded-lg text-[10px] font-semibold text-gray-400 hover:text-white transition">Tarik</button>
+                    </div>
+                </div>
+
+                <div id="history-list-container" class="space-y-2.5">
+                    <!-- Rendered by JS -->
+                </div>
+            </section>
+
+            <!-- TAB 6: RULES & SALURAN -->
+            <section id="view-rules" class="space-y-4 hidden animate-fadeIn">
+                <div class="p-4 rounded-2xl bg-gradient-to-br from-purple-900/50 via-[#17122b] to-[#120c24] border border-purple-500/30">
+                    <h3 class="text-sm font-bold text-white flex items-center gap-2 mb-2">
+                        <i data-lucide="megaphone" class="w-4 h-4 text-amber-400"></i> PENGUMUMAN STORGMAILPRIME
+                    </h3>
+                    <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold mb-4 leading-relaxed">
+                        INFO PENTING: SEMUA ROOM SEDANG CLOSE, SILAHKAN JOIN SALURAN WHATSAPP DAN JOIN GRUB DISKUSI TELEGRAM UNTUK INFO LAINNYA.
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <a id="link-wa-btn" href="https://whatsapp.com" target="_blank" class="p-3 rounded-xl bg-emerald-950/40 border border-emerald-700/40 hover:bg-emerald-900/40 transition flex items-center justify-between group">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-600/20 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition">
+                                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-white">Saluran WhatsApp Resmi</h4>
+                                    <p class="text-[10px] text-gray-300">Update info room & pengumuman kilat</p>
+                                </div>
+                            </div>
+                            <i data-lucide="external-link" class="w-4 h-4 text-emerald-400"></i>
+                        </a>
+
+                        <a id="link-tg-btn" href="https://telegram.org" target="_blank" class="p-3 rounded-xl bg-blue-950/40 border border-blue-700/40 hover:bg-blue-900/40 transition flex items-center justify-between group">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-400 group-hover:scale-110 transition">
+                                    <i data-lucide="send" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-white">Grup Diskusi Telegram</h4>
+                                    <p class="text-[10px] text-gray-300">Diskusi sesama suplier & admin</p>
+                                </div>
+                            </div>
+                            <i data-lucide="external-link" class="w-4 h-4 text-blue-400"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-[#17122b] border border-[#2c2250] space-y-2">
+                    <h4 class="text-xs font-bold text-purple-300 flex items-center gap-1.5 uppercase tracking-wider">
+                        <i data-lucide="shield-check" class="w-4 h-4"></i> Aturan & Ketentuan Setoran
+                    </h4>
+                    <ul class="text-xs text-gray-300 space-y-1.5 list-disc list-inside leading-relaxed">
+                        <li>Pastikan format <code class="bg-black/40 px-1 py-0.5 rounded text-purple-300 font-mono">email:password</code> benar.</li>
+                        <li>Dilarang setor akun hasil phising atau carding yang melanggar hukum.</li>
+                        <li>Proses pengecekan dan acc saldo memakan waktu 1-10 menit.</li>
+                        <li>Jika room status <strong class="text-red-400">CLOSE</strong>, form setoran dikunci otomatis.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- TAB 7: ADMIN PANEL -->
+            <section id="view-admin" class="space-y-4 hidden animate-fadeIn">
+                <!-- PIN Modal / Protector -->
+                <div id="admin-login-box" class="p-6 rounded-2xl bg-[#17122b] border border-[#2c2250] text-center space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 mx-auto">
+                        <i data-lucide="shield-alert" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-white">Admin Panel Login</h3>
+                        <p class="text-xs text-gray-400 mt-1">Masukkan PIN Admin untuk mengakses kendali room & harga.</p>
+                    </div>
+                    <div class="max-w-xs mx-auto space-y-3">
+                        <input type="password" id="admin-pin-input" placeholder="PIN (default: 8888)" class="w-full bg-[#110e21] border border-[#2c2250] rounded-xl px-4 py-2.5 text-center text-sm font-mono text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500 transition">
+                        <button onclick="verifyAdminPin()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs shadow-lg shadow-indigo-600/30 transition active:scale-95">
+                            Buka Admin Panel
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Admin Dashboard (Hidden before login) -->
+                <div id="admin-dashboard-box" class="hidden space-y-4">
+                    <div class="flex items-center justify-between p-3 rounded-xl bg-indigo-950/40 border border-indigo-800/40">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                            <span class="text-xs font-bold text-indigo-200">Admin Mode Aktif</span>
+                        </div>
+                        <button onclick="lockAdmin()" class="px-2.5 py-1 rounded-lg bg-red-500/20 text-red-400 text-xs font-semibold hover:bg-red-500/30 transition">Lock</button>
+                    </div>
+
+                    <!-- 1. Open/Close Room Switcher -->
+                    <div class="p-4 rounded-2xl bg-[#17122b] border border-[#2c2250] space-y-3">
+                        <h4 class="text-xs font-bold text-white flex items-center gap-2">
+                            <i data-lucide="power" class="w-4 h-4 text-purple-400"></i> Status Room Setoran Global
+                        </h4>
+                        <div class="flex items-center justify-between p-3 rounded-xl bg-[#110e21] border border-[#2c2250]">
+                            <div>
+                                <p class="text-xs font-bold text-white" id="admin-room-label">Room Close</p>
+                                <p class="text-[10px] text-gray-400">Atur buka/tutup form setoran suplier</p>
+                            </div>
+                            <button onclick="toggleRoomStatus()" id="admin-room-toggle-btn" class="px-4 py-2 rounded-xl text-xs font-bold transition">
+                                Ubah Status
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 1.1 Pengaturan Custom Pengumuman & Link -->
+                    <div class="p-4 rounded-2xl bg-[#17122b] border border-[#2c2250] space-y-3">
+                        <h4 class="text-xs font-bold text-white flex items-center gap-2">
+                            <i data-lucide="settings" class="w-4 h-4 text-amber-400"></i> Pengaturan Konten & Tautan Web
+                        </h4>
+                        <form onsubmit="saveAdminSettings(event)" class="space-y-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">Teks Pengumuman / Ticker</label>
+                                <textarea id="setting-ticker" rows="2" class="w-full bg-[#110e21] border border-[#2c2250] rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-amber-500"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">URL Saluran WhatsApp</label>
+                                <input type="url" id="setting-wa" class="w-full bg-[#110e21] border border-[#2c2250] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">URL Grup Telegram</label>
+                                <input type="url" id="setting-tg" class="w-full bg-[#110e21] border border-[#2c2250] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
+                            </div>
+                            <button type="submit" class="w-full py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs transition">Simpan Pengaturan Web</button>
+                        </form>
+                    </div>
+
+                    <!-- 2. Pengaturan Harga Gmail -->
+                    <div class="p-4 rounded-2xl bg-[#17122b] border border-[#2c2250] space-y-3">
+                        <div class="flex justify-between items-center">
+                            <h4 class="text-xs font-bold text-white flex items-center gap-2">
+                                <i data-lucide="tag" class="w-4 h-4 text-blue-400"></i> Kelola Harga Gmail per Kategori
+                            </h4>
+                            <button onclick="openAddCategoryModal()" class="px-2.5 py-1 rounded-lg bg-purple-600/20 text-purple-300 text-[11px] font-semibold hover:bg-purple-600/30 transition">+ Tambah</button>
+                        </div>
+                        <div id="admin-price-list" class="space-y-2">
+                            <!-- Rendered by JS -->
+                        </div>
+                    </div>
+
+                    <!-- 3. List Setoran Masuk (Approval) -->
+                    <div class="p-4 rounded-2xl bg-[#17122b] border border-[#2c2250] space-y-3">
+                        <h4 class="text-xs font-bold text-white flex items-center gap-2">
+                            <i data-lucide="inbox" class="w-4 h-4 text-emerald-400"></i> Approval Setoran Gmail Masuk
+                        </h4>
+                        <div id="admin-setor-list" class="space-y-2.5 max-h-72 overflow-y-auto">
+                            <!-- Rendered by JS -->
+                        </div>
+                    </div>
+
+                    <!-- 4. List Withdraw Request (Approval) -->
+                    <div class="p-4 rounded-2xl bg-[#17122b] border border-[#2c2250] space-y-3">
+                        <h4 class="text-xs font-bold text-white flex items-center gap-2">
+                            <i data-lucide="wallet" class="w-4 h-4 text-amber-400"></i> Approval Request Tarik Saldo
+                        </h4>
+                        <div id="admin-withdraw-list" class="space-y-2.5 max-h-72 overflow-y-auto">
+                            <!-- Rendered by JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- BOTTOM NAVIGATION BAR -->
+        <nav class="absolute bottom-0 left-0 right-0 z-40 bg-[#120e26]/95 backdrop-blur-md border-t border-[#2c2250] py-2 px-3 flex justify-around items-center">
+            <button onclick="switchTab('home')" id="nav-btn-home" class="flex flex-col items-center gap-1 text-purple-400 transition active:scale-95">
+                <i data-lucide="home" class="w-5 h-5"></i>
+                <span class="text-[10px] font-medium">Home</span>
+            </button>
+            <button onclick="switchTab('setor')" id="nav-btn-setor" class="flex flex-col items-center gap-1 text-gray-400 hover:text-purple-300 transition active:scale-95">
+                <i data-lucide="upload-cloud" class="w-5 h-5"></i>
+                <span class="text-[10px] font-medium">Setor</span>
+            </button>
+            <button onclick="switchTab('checker')" id="nav-btn-checker" class="flex flex-col items-center gap-1 text-gray-400 hover:text-purple-300 transition active:scale-95">
+                <i data-lucide="check-check" class="w-5 h-5"></i>
+                <span class="text-[10px] font-medium">Checker</span>
+            </button>
+            <button onclick="switchTab('tarik')" id="nav-btn-tarik" class="flex flex-col items-center gap-1 text-gray-400 hover:text-purple-300 transition active:scale-95">
+                <i data-lucide="wallet" class="w-5 h-5"></i>
+                <span class="text-[10px] font-medium">Tarik</span>
+            </button>
+            <button onclick="switchTab('riwayat')" id="nav-btn-riwayat" class="flex flex-col items-center gap-1 text-gray-400 hover:text-purple-300 transition active:scale-95">
+                <i data-lucide="history" class="w-5 h-5"></i>
+                <span class="text-[10px] font-medium">Riwayat</span>
+            </button>
+            <button onclick="switchTab('admin')" id="nav-btn-admin" class="flex flex-col items-center gap-1 text-gray-400 hover:text-purple-300 transition active:scale-95">
+                <i data-lucide="shield-alert" class="w-5 h-5"></i>
+                <span class="text-[10px] font-medium">Admin</span>
+            </button>
+        </nav>
+
+    </div>
+
+    <!-- MODAL TAMBAH KATEGORI / HARGA -->
+    <div id="modal-category" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-[#17122b] border border-[#2c2250] rounded-2xl w-full max-w-sm p-5 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center">
+                <h3 class="text-sm font-bold text-white">Tambah Kategori & Harga Gmail</h3>
+                <button onclick="closeAddCategoryModal()" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 mb-1">Nama Kategori</label>
+                    <input type="text" id="new-cat-name" placeholder="cth: Gmail Fresh 2026 / Aged" class="w-full bg-[#110e21] border border-[#2c2250] rounded-xl px-3 py-2 text-xs text-white">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 mb-1">Harga per Akun (Rp)</label>
+                    <input type="number" id="new-cat-price" placeholder="cth: 5000" class="w-full bg-[#110e21] border border-[#2c2250] rounded-xl px-3 py-2 text-xs text-white">
+                </div>
+                <button onclick="saveNewCategory()" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition">Simpan Kategori</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- INITIAL STATE WITH LOCALSTORAGE PERSISTENCE ---
+        let defaultAppData = {
+            roomOpen: false, 
+            userBalance: 45000,
+            tickerText: "PENGUMUMAN STORGMAILPRIME • INFO PENTING: SEMUA ROOM SEDANG CLOSE, SILAHKAN JOIN SALURAN WHATSAPP DAN JOIN GRUB DISKUSI TELEGRAM UNTUK INFO LAINNYA • SETOR CEPAT, CAIR KILAT!",
+            waLink: "https://whatsapp.com",
+            tgLink: "https://telegram.org",
+            categories: [
+                { id: 'cat1', name: 'Gmail Fresh Phone Verified (PVA)', price: 4500 },
+                { id: 'cat2', name: 'Gmail Aged 1-3 Bulan', price: 6500 },
+                { id: 'cat3', name: 'Gmail Buat Manual No Recovery', price: 3000 }
+            ],
+            history: [
+                { id: 'TRX-9012', type: 'setor', category: 'Gmail Fresh PVA', count: 5, total: 22500, status: 'sukses', date: '2026-10-31 10:20' },
+                { id: 'TRX-9011', type: 'tarik', method: 'DANA', account: '081234567890', total: 15000, status: 'sukses', date: '2026-10-30 15:45' }
+            ],
+            pendingSetors: [
+                { id: 'SETOR-8821', user: 'Suplier_01', categoryId: 'cat1', categoryName: 'Gmail Fresh Phone Verified (PVA)', rawData: 'acc1@gmail.com:pass1\nacc2@gmail.com:pass2', count: 2, total: 9000, status: 'pending', date: 'Hari ini 11:15' }
+            ],
+            pendingWithdraws: [
+                { id: 'WD-4412', user: 'Member_Pro', method: 'DANA', account: '089876543210', name: 'Budi Santoso', amount: 25000, status: 'pending', date: 'Hari ini 11:25' }
+            ]
+        };
+
+        let appState = JSON.parse(localStorage.getItem('storgmail88_data')) || defaultAppData;
+
+        function saveState() {
+            localStorage.setItem('storgmail88_data', JSON.stringify(appState));
+        }
+
+        // --- INIT LUCIDE ICONS & RENDER ---
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            renderAll();
+        });
+
+        // --- TOAST NOTIFICATION ---
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const bgCol = type === 'success' ? 'bg-emerald-950/90 border-emerald-500/50 text-emerald-200' : type === 'error' ? 'bg-red-950/90 border-red-500/50 text-red-200' : 'bg-purple-950/90 border-purple-500/50 text-purple-200';
+            const iconName = type === 'success' ? 'check-circle-2' : type === 'error' ? 'alert-circle' : 'info';
+            
+            toast.className = `pointer-events-auto flex items-center gap-3 p-3.5 rounded-2xl border backdrop-blur-md shadow-xl transition-all duration-300 animate-slideUp ${bgCol}`;
+            toast.innerHTML = `
+                <i data-lucide="${iconName}" class="w-5 h-5 shrink-0"></i>
+                <span class="text-xs font-semibold leading-relaxed">${message}</span>
+            `;
+            container.appendChild(toast);
+            lucide.createIcons();
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        // --- SWITCH TABS ---
+        function switchTab(tabId) {
+            const tabs = ['home', 'setor', 'checker', 'tarik', 'riwayat', 'rules', 'admin'];
+            tabs.forEach(t => {
+                const el = document.getElementById(`view-${t}`);
+                const navBtn = document.getElementById(`nav-btn-${t}`);
+                if (el) el.classList.add('hidden');
+                if (navBtn) {
+                    navBtn.classList.remove('text-purple-400');
+                    navBtn.classList.add('text-gray-400');
+                }
+            });
+
+            const activeEl = document.getElementById(`view-${tabId}`);
+            const activeNav = document.getElementById(`nav-btn-${tabId}`);
+            if (activeEl) activeEl.classList.remove('hidden');
+            if (activeNav) {
+                activeNav.classList.remove('text-gray-400');
+                activeNav.classList.add('text-purple-400');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            renderAll();
+        }
+
+        // --- RENDER ALL DATA ---
+        function renderAll() {
+            document.getElementById('user-balance').innerText = formatRupiah(appState.userBalance);
+            document.getElementById('tarik-balance-display').innerText = formatRupiah(appState.userBalance);
+
+            // Ticker update
+            const tickerEl = document.getElementById('ticker-text-display');
+            if(tickerEl) tickerEl.innerText = appState.tickerText;
+
+            // Rules links update
+            const waBtn = document.getElementById('link-wa-btn');
+            const tgBtn = document.getElementById('link-tg-btn');
+            if(waBtn) waBtn.href = appState.waLink;
+            if(tgBtn) tgBtn.href = appState.tgLink;
+
+            // Room Status Banner
+            const banner = document.getElementById('room-status-banner');
+            const iconWrap = document.getElementById('room-status-icon-wrap');
+            const icon = document.getElementById('room-status-icon');
+            const pill = document.getElementById('room-status-pill');
+            const title = document.getElementById('room-status-title');
+            const desc = document.getElementById('room-status-desc');
+            const setorBadge = document.getElementById('setor-room-badge');
+            const setorInst = document.getElementById('setor-instruction-text');
+            const btnSubmitStor = document.getElementById('btn-submit-stor');
+
+            if (appState.roomOpen) {
+                banner.className = "p-4 rounded-2xl bg-gradient-to-r from-emerald-950/60 to-[#18132d] border border-emerald-500/40 shadow-lg flex items-center justify-between";
+                iconWrap.className = "w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0";
+                icon.setAttribute('data-lucide', 'unlock');
+                pill.className = "text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+                pill.innerText = "OPEN ROOM";
+                title.innerText = "Room Setoran Dibuka!";
+                desc.innerText = "Silakan setor Gmail Anda sekarang sebelum room ditutup kembali.";
+                
+                setorBadge.className = "text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+                setorBadge.innerText = "STATUS: OPEN";
+                setorInst.innerText = "Room sedang buka. Masukkan akun Gmail sesuai kategori.";
+                if (btnSubmitStor) {
+                    btnSubmitStor.disabled = false;
+                    btnSubmitStor.classList.remove('opacity-50', 'cursor-not-allowed');
+                }
+            } else {
+                banner.className = "p-4 rounded-2xl bg-gradient-to-r from-red-950/60 to-[#18132d] border border-red-500/40 shadow-lg flex items-center justify-between";
+                iconWrap.className = "w-12 h-12 rounded-xl bg-red-500/20 text-red-400 flex items-center justify-center shrink-0";
+                icon.setAttribute('data-lucide', 'lock');
+                pill.className = "text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider bg-red-500/20 text-red-300 border border-red-500/30";
+                pill.innerText = "CLOSE ROOM";
+                title.innerText = "Semua Room Sedang Close!";
+                desc.innerText = "Cek saluran WhatsApp & grup Telegram untuk info room berikutnya.";
+                
+                setorBadge.className = "text-[10px] font-bold px-2 py-0.5 rounded bg-red-500/20 text-red-300 border border-red-500/30";
+                setorBadge.innerText = "STATUS: CLOSE";
+                setorInst.innerText = "PERHATIAN: Room sedang tutup! Anda tidak dapat melakukan setoran saat ini.";
+                if (btnSubmitStor) {
+                    btnSubmitStor.disabled = true;
+                    btnSubmitStor.classList.add('opacity-50', 'cursor-not-allowed');
+                }
+            }
+
+            // Statistics calculation
+            let totalDisetor = 0;
+            let pendingCount = 0;
+            let suksesCount = 0;
+            let totalCuan = 0;
+
+            appState.history.forEach(h => {
+                if (h.type === 'setor') {
+                    if (h.status === 'sukses') {
+                        totalDisetor += h.count;
+                        suksesCount++;
+                        totalCuan += h.total;
+                    }
+                }
+            });
+            appState.pendingSetors.forEach(ps => {
+                if (ps.status === 'pending') pendingCount++;
+            });
+
+            document.getElementById('stat-total').innerText = totalDisetor;
+            document.getElementById('stat-pending').innerText = pendingCount;
+            document.getElementById('stat-sukses').innerText = suksesCount;
+            document.getElementById('stat-cuan').innerText = formatRupiah(totalCuan);
+
+            renderPriceLists();
+            renderCategoriesSelect();
+            renderHistoryList('all');
+            renderAdminLists();
+
+            lucide.createIcons();
+        }
+
+        function renderPriceLists() {
+            const homeList = document.getElementById('home-price-list');
+            const adminList = document.getElementById('admin-price-list');
+            
+            let htmlHome = '';
+            let htmlAdmin = '';
+
+            appState.categories.forEach(cat => {
+                htmlHome += `
+                    <div class="flex justify-between items-center bg-[#110e21] p-2.5 rounded-xl border border-[#2c2250]">
+                        <span class="text-xs text-gray-200 font-medium">${cat.name}</span>
+                        <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">${formatRupiah(cat.price)} / acc</span>
+                    </div>
+                `;
+
+                htmlAdmin += `
+                    <div class="flex justify-between items-center bg-[#110e21] p-2.5 rounded-xl border border-[#2c2250]">
+                        <div>
+                            <p class="text-xs font-bold text-white">${cat.name}</p>
+                            <p class="text-[10px] text-emerald-400">${formatRupiah(cat.price)} per akun</p>
+                        </div>
+                        <button onclick="deleteCategory('${cat.id}')" class="p-1.5 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 transition"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                    </div>
+                `;
+            });
+
+            if(homeList) homeList.innerHTML = htmlHome;
+            if(adminList) adminList.innerHTML = htmlAdmin;
+        }
+
+        function renderCategoriesSelect() {
+            const select = document.getElementById('stor-category');
+            if (!select) return;
+            let html = '';
+            appState.categories.forEach(cat => {
+                html += `<option value="${cat.id}">${cat.name} (${formatRupiah(cat.price)}/acc)</option>`;
+            });
+            select.innerHTML = html;
+        }
+
+        function formatRupiah(num) {
+            return 'Rp ' + num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        // --- FITUR CHECKER ---
+        function runChecker() {
+            const input = document.getElementById('checker-input').value.trim();
+            const wrapper = document.getElementById('checker-result-wrapper');
+            const stats = document.getElementById('checker-result-stats');
+            const list = document.getElementById('checker-result-list');
+
+            if (!input) {
+                showToast('Masukkan data email & password terlebih dahulu!', 'error');
+                return;
+            }
+
+            const lines = input.split('\n');
+            let validCount = 0;
+            let invalidCount = 0;
+            let listHtml = '';
+
+            lines.forEach((line) => {
+                const parts = line.trim().split(':');
+                const isEmailValid = parts.length >= 2 && parts[0].includes('@gmail.com') && parts[1].length >= 4;
+
+                if (isEmailValid) {
+                    validCount++;
+                    listHtml += `
+                        <div class="p-2.5 rounded-xl bg-emerald-950/30 border border-emerald-800/30 flex items-center justify-between text-xs">
+                            <span class="font-mono text-emerald-300 truncate max-w-[240px]">${line}</span>
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[10px] font-semibold">Valid</span>
+                        </div>
+                    `;
+                } else {
+                    invalidCount++;
+                    listHtml += `
+                        <div class="p-2.5 rounded-xl bg-red-950/30 border border-red-800/30 flex items-center justify-between text-xs">
+                            <span class="font-mono text-red-300 truncate max-w-[240px]">${line || '(Baris kosong)'}</span>
+                            <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-400 text-[10px] font-semibold">Invalid Format</span>
+                        </div>
+                    `;
+                }
+            });
+
+            wrapper.classList.remove('hidden');
+            stats.innerHTML = `
+                <div class="p-3 rounded-xl bg-[#17122b] border border-[#2c2250] text-center">
+                    <p class="text-[10px] text-gray-400 font-medium">Valid Format</p>
+                    <h5 class="text-base font-bold text-emerald-400">${validCount} Akun</h5>
+                </div>
+                <div class="p-3 rounded-xl bg-[#17122b] border border-[#2c2250] text-center">
+                    <p class="text-[10px] text-gray-400 font-medium">Invalid Format</p>
+                    <h5 class="text-base font-bold text-red-400">${invalidCount} Akun</h5>
+                </div>
+            `;
+            list.innerHTML = listHtml;
+            showToast(`Pemeriksaan selesai: ${validCount} valid, ${invalidCount} invalid.`, 'info');
+            lucide.createIcons();
+        }
+
+        // --- FITUR STOR GMAIL ---
+        function handleSetorSubmit(e) {
+            e.preventDefault();
+            if (!appState.roomOpen) {
+                showToast('Gagal! Semua room sedang CLOSE. Tidak dapat setor saat ini.', 'error');
+                return;
+            }
+
+            const catId = document.getElementById('stor-category').value;
+            const dataInput = document.getElementById('stor-data-input').value.trim();
+
+            if (!dataInput) {
+                showToast('Data Gmail kosong!', 'error');
+                return;
+            }
+
+            const lines = dataInput.split('\n').filter(l => l.trim().length > 0);
+            const catObj = appState.categories.find(c => c.id === catId);
+            const totalEarnings = lines.length * catObj.price;
+
+            const newSetor = {
+                id: 'SETOR-' + Math.floor(1000 + Math.random() * 9000),
+                user: 'Anda (Member)',
+                categoryId: catId,
+                categoryName: catObj.name,
+                rawData: dataInput,
+                count: lines.length,
+                total: totalEarnings,
+                status: 'pending',
+                date: 'Baru saja'
+            };
+
+            appState.pendingSetors.unshift(newSetor);
+            saveState();
+            document.getElementById('stor-data-input').value = '';
+            showToast(`Berhasil mengirim ${lines.length} akun Gmail! Menunggu approval admin.`, 'success');
+            switchTab('riwayat');
+        }
+
+        // --- FITUR TARIK SALDO ---
+        function setMaxWithdraw() {
+            document.getElementById('withdraw-amount').value = appState.userBalance;
+        }
+
+        function handleWithdrawSubmit(e) {
+            e.preventDefault();
+            const method = document.getElementById('withdraw-method').value;
+            const account = document.getElementById('withdraw-account').value;
+            const name = document.getElementById('withdraw-name').value;
+            const amount = parseInt(document.getElementById('withdraw-amount').value);
+
+            if (amount > appState.userBalance) {
+                showToast('Saldo Anda tidak mencukupi untuk penarikan ini!', 'error');
+                return;
+            }
+
+            if (amount < 10000) {
+                showToast('Minimal penarikan adalah Rp 10.000', 'error');
+                return;
+            }
+
+            appState.userBalance -= amount;
+
+            const newWd = {
+                id: 'WD-' + Math.floor(1000 + Math.random() * 9000),
+                user: 'Anda (Member)',
+                method: method,
+                account: account,
+                name: name,
+                amount: amount,
+                status: 'pending',
+                date: 'Baru saja'
+            };
+
+            appState.pendingWithdraws.unshift(newWd);
+            
+            appState.history.unshift({
+                id: newWd.id,
+                type: 'tarik',
+                method: method,
+                account: account,
+                total: amount,
+                status: 'pending',
+                date: 'Baru saja'
+            });
+
+            saveState();
+            document.getElementById('withdraw-account').value = '';
+            document.getElementById('withdraw-name').value = '';
+            document.getElementById('withdraw-amount').value = '';
+
+            showToast('Permintaan tarik saldo berhasil diajukan!', 'success');
+            switchTab('riwayat');
+        }
+
+        // --- RIWAYAT FILTER ---
+        let currentFilter = 'all';
+        function filterHistory(type) {
+            currentFilter = type;
+            ['all', 'setor', 'tarik'].forEach(t => {
+                const btn = document.getElementById(`filter-${t}`);
+                if (t === type) {
+                    btn.className = "px-2.5 py-1 rounded-lg text-[10px] font-semibold bg-purple-600 text-white transition";
+                } else {
+                    btn.className = "px-2.5 py-1 rounded-lg text-[10px] font-semibold text-gray-400 hover:text-white transition";
+                }
+            });
+            renderHistoryList(type);
+        }
+
+        function renderHistoryList(filter) {
+            const container = document.getElementById('history-list-container');
+            if (!container) return;
+
+            let html = '';
+            let filtered = appState.history;
+            if (filter !== 'all') {
+                filtered = appState.history.filter(h => h.type === filter);
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-10 text-gray-500 text-xs">
+                        <i data-lucide="folder-open" class="w-8 h-8 mx-auto mb-2 opacity-40"></i>
+                        Belum ada riwayat aktivitas.
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            filtered.forEach(h => {
+                const isSetor = h.type === 'setor';
+                const statusColor = h.status === 'sukses' ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : h.status === 'pending' ? 'bg-amber-500/20 text-amber-400 border-amber-500/30' : 'bg-red-500/20 text-red-400 border-red-500/30';
+                
+                html += `
+                    <div class="p-3.5 rounded-2xl bg-[#17122b] border border-[#2c2250] flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl ${isSetor ? 'bg-purple-600/20 text-purple-400' : 'bg-emerald-600/20 text-emerald-400'} flex items-center justify-center shrink-0">
+                                <i data-lucide="${isSetor ? 'upload-cloud' : 'wallet'}" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white">${isSetor ? 'Setor ' + h.category : 'Tarik ' + h.method}</h4>
+                                <p class="text-[10px] text-gray-400">${h.date} &bull; <span class="font-mono">${h.id}</span></p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-xs font-bold ${isSetor ? 'text-emerald-400' : 'text-amber-400'}">${isSetor ? '+' : '-'}${formatRupiah(h.total)}</p>
+                            <span class="text-[9px] px-2 py-0.5 rounded-full border uppercase font-semibold ${statusColor}">${h.status}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        // --- ADMIN PANEL FUNCTIONS ---
+        function verifyAdminPin() {
+            const pin = document.getElementById('admin-pin-input').value;
+            if (pin === '8888') {
+                document.getElementById('admin-login-box').classList.add('hidden');
+                document.getElementById('admin-dashboard-box').classList.remove('hidden');
+                
+                // Populate current settings in form
+                document.getElementById('setting-ticker').value = appState.tickerText;
+                document.getElementById('setting-wa').value = appState.waLink;
+                document.getElementById('setting-tg').value = appState.tgLink;
+
+                showToast('Login Admin Berhasil!', 'success');
+            } else {
+                showToast('PIN Admin Salah! (Default: 8888)', 'error');
+            }
+        }
+
+        function lockAdmin() {
+            document.getElementById('admin-login-box').classList.remove('hidden');
+            document.getElementById('admin-dashboard-box').classList.add('hidden');
+            document.getElementById('admin-pin-input').value = '';
+            showToast('Admin Panel Dikunci.', 'info');
+        }
+
+        function toggleRoomStatus() {
+            appState.roomOpen = !appState.roomOpen;
+            saveState();
+            showToast(`Status room berhasil diubah menjadi: ${appState.roomOpen ? 'OPEN' : 'CLOSE'}`, 'info');
+            renderAll();
+        }
+
+        function saveAdminSettings(e) {
+            e.preventDefault();
+            appState.tickerText = document.getElementById('setting-ticker').value;
+            appState.waLink = document.getElementById('setting-wa').value;
+            appState.tgLink = document.getElementById('setting-tg').value;
+            saveState();
+            showToast('Pengaturan web berhasil diperbarui!', 'success');
+            renderAll();
+        }
+
+        function openAddCategoryModal() {
+            document.getElementById('modal-category').classList.remove('hidden');
+        }
+
+        function closeAddCategoryModal() {
+            document.getElementById('modal-category').classList.add('hidden');
+        }
+
+        function saveNewCategory() {
+            const name = document.getElementById('new-cat-name').value.trim();
+            const price = parseInt(document.getElementById('new-cat-price').value);
+
+            if (!name || isNaN(price)) {
+                showToast('Mohon isi nama dan harga dengan benar!', 'error');
+                return;
+            }
+
+            appState.categories.push({
+                id: 'cat_' + Date.now(),
+                name: name,
+                price: price
+            });
+
+            saveState();
+            document.getElementById('new-cat-name').value = '';
+            document.getElementById('new-cat-price').value = '';
+            closeAddCategoryModal();
+            showToast('Kategori & Harga baru berhasil ditambahkan!', 'success');
+            renderAll();
+        }
+
+        function deleteCategory(id) {
+            appState.categories = appState.categories.filter(c => c.id !== id);
+            saveState();
+            showToast('Kategori dihapus.', 'info');
+            renderAll();
+        }
+
+        function renderAdminLists() {
+            const roomLabel = document.getElementById('admin-room-label');
+            const roomToggleBtn = document.getElementById('admin-room-toggle-btn');
+            if (appState.roomOpen) {
+                roomLabel.innerText = "Status: OPEN ROOM (Menerima Setoran)";
+                roomToggleBtn.className = "px-4 py-2 rounded-xl text-xs font-bold bg-red-600 hover:bg-red-500 text-white transition";
+                roomToggleBtn.innerText = "Tutup Room";
+            } else {
+                roomLabel.innerText = "Status: CLOSE ROOM (Semua Room Tutup)";
+                roomToggleBtn.className = "px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white transition";
+                roomToggleBtn.innerText = "Buka Room";
+            }
+
+            // Pending Setor List
+            const setorListContainer = document.getElementById('admin-setor-list');
+            if (setorListContainer) {
+                let html = '';
+                if (appState.pendingSetors.length === 0) {
+                    html = '<p class="text-center text-xs text-gray-500 py-4">Tidak ada setoran pending.</p>';
+                } else {
+                    appState.pendingSetors.forEach((ps, idx) => {
+                        html += `
+                            <div class="p-3 rounded-xl bg-[#110e21] border border-[#2c2250] space-y-2">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <span class="text-[10px] font-mono bg-purple-500/20 text-purple-300 px-1.5 py-0.5 rounded">${ps.id}</span>
+                                        <h5 class="text-xs font-bold text-white mt-1">${ps.categoryName} (${ps.count} Akun)</h5>
+                                        <p class="text-[10px] text-gray-400">Suplier: ${ps.user} &bull; ${ps.date}</p>
+                                    </div>
+                                    <span class="text-xs font-bold text-emerald-400">${formatRupiah(ps.total)}</span>
+                                </div>
+                                <div class="p-2 rounded bg-black/40 font-mono text-[10px] text-gray-300 max-h-20 overflow-y-auto whitespace-pre-wrap">${ps.rawData}</div>
+                                <div class="flex gap-2 pt-1">
+                                    <button onclick="approveSetor(${idx})" class="flex-1 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-bold transition">Acc & Tambah Saldo</button>
+                                    <button onclick="rejectSetor(${idx})" class="px-3 py-1.5 rounded-lg bg-red-600/20 text-red-400 hover:bg-red-600/30 text-[11px] font-bold transition">Tolak</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+                setorListContainer.innerHTML = html;
+            }
+
+            // Pending Withdraw List
+            const wdListContainer = document.getElementById('admin-withdraw-list');
+            if (wdListContainer) {
+                let html = '';
+                if (appState.pendingWithdraws.length === 0) {
+                    html = '<p class="text-center text-xs text-gray-500 py-4">Tidak ada request tarik saldo pending.</p>';
+                } else {
+                    appState.pendingWithdraws.forEach((wd, idx) => {
+                        html += `
+                            <div class="p-3 rounded-xl bg-[#110e21] border border-[#2c2250] space-y-2">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <span class="text-[10px] font-mono bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded">${wd.id}</span>
+                                        <h5 class="text-xs font-bold text-white mt-1">${wd.method} - ${wd.account}</h5>
+                                        <p class="text-[10px] text-gray-400">Atas Nama: ${wd.name} &bull; ${wd.date}</p>
+                                    </div>
+                                    <span class="text-xs font-bold text-amber-400">${formatRupiah(wd.amount)}</span>
+                                </div>
+                                <div class="flex gap-2 pt-1">
+                                    <button onclick="approveWithdraw(${idx})" class="flex-1 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-bold transition">Tandai Sudah Ditransfer</button>
+                                    <button onclick="rejectWithdraw(${idx})" class="px-3 py-1.5 rounded-lg bg-red-600/20 text-red-400 hover:bg-red-600/30 text-[11px] font-bold transition">Batalkan</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+                wdListContainer.innerHTML = html;
+            }
+        }
+
+        function approveSetor(idx) {
+            const ps = appState.pendingSetors[idx];
+            appState.userBalance += ps.total;
+            
+            appState.history.unshift({
+                id: ps.id,
+                type: 'setor',
+                category: ps.categoryName,
+                count: ps.count,
+                total: ps.total,
+                status: 'sukses',
+                date: 'Baru saja acc'
+            });
+
+            appState.pendingSetors.splice(idx, 1);
+            saveState();
+            showToast(`Setor ${ps.id} disetujui! Saldo bertambah ${formatRupiah(ps.total)}`, 'success');
+            renderAll();
+        }
+
+        function rejectSetor(idx) {
+            const ps = appState.pendingSetors[idx];
+            appState.history.unshift({
+                id: ps.id,
+                type: 'setor',
+                category: ps.categoryName,
+                count: ps.count,
+                total: ps.total,
+                status: 'ditolak',
+                date: 'Ditolak admin'
+            });
+            appState.pendingSetors.splice(idx, 1);
+            saveState();
+            showToast(`Setoran ${ps.id} ditolak.`, 'error');
+            renderAll();
+        }
+
+        function approveWithdraw(idx) {
+            const wd = appState.pendingWithdraws[idx];
+            appState.pendingWithdraws.splice(idx, 1);
+            saveState();
+            showToast(`Penarikan ${wd.id} berhasil dikonfirmasi lunas!`, 'success');
+            renderAll();
+        }
+
+        function rejectWithdraw(idx) {
+            const wd = appState.pendingWithdraws[idx];
+            appState.userBalance += wd.amount; 
+            appState.pendingWithdraws.splice(idx, 1);
+            saveState();
+            showToast(`Penarikan ${wd.id} dibatalkan & saldo dikembalikan.`, 'error');
+            renderAll();
+        }
+    </script>
+</body>
+</html>
